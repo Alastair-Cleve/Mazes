@@ -48,6 +48,7 @@
 	var Timer = __webpack_require__(2);
 	var Cat = __webpack_require__(3);
 	var Fish = __webpack_require__(4);
+	var Balloon = __webpack_require__(5);
 	
 	var canvas;
 	var ctx;
@@ -59,23 +60,7 @@
 	var cat;
 	
 	var fish;
-	
-	
-	var balloons = [
-	  new Image(),
-	  new Image(),
-	  new Image(),
-	  new Image(),
-	  new Image()
-	];
-	
-	var balloon_locations = [
-	  [0, 0],
-	  [0, 0],
-	  [0, 0],
-	  [0, 0],
-	  [0, 0]
-	];
+	var balloons;
 	
 	var collision = 0;
 	
@@ -99,8 +84,8 @@
 	    ctx.drawImage(fish.image, fish.location[0], fish.location[1]);
 	  })
 	
-	  balloons.forEach(function(balloon, index) {
-	    ctx.drawImage(balloon, balloon_locations[index][0], balloon_locations[index][1]);
+	  balloons.forEach(function(balloon) {
+	    ctx.drawImage(balloon.image, balloon.location[0], balloon.location[1]);
 	  })
 	}
 	
@@ -118,25 +103,16 @@
 	    fish[i].setLocation();
 	  }
 	
-	  balloons.forEach(function(balloon) {
-	    balloon.src = "./images/balloon.png";
-	  })
-	
-	  setBalloonLocations();
+	  balloons = [];
+	  for(var i = 0; i < 5; i++) {
+	    balloons.push(new Balloon ());
+	    balloon[i].image.src = "./images/balloon.png";
+	    balloon[i].setLocation();
+	  }
 	
 	  timer();
 	  var drawMaze = setInterval(draw, 10);
 	  return drawMaze;
-	}
-	
-	function setBalloonLocations() {
-	  balloon_locations.forEach(function(balloon) {
-	    var index = Math.floor(Math.random() * validPositions.length)
-	    var coords = validPositions[index];
-	    validPositions.splice(index, 1);
-	    balloon[0] = coords[0];
-	    balloon[1] = coords[1];
-	  })
 	}
 	
 	function timer() {
@@ -228,7 +204,7 @@
 	          document.getElementById('message-green').style.display = "block";
 	          setTimeout(function () {
 	            document.getElementById('message-green').style.display = "none";
-	          }, 15000);
+	          }, 5000);
 	        }
 	      })
 	    }
@@ -240,16 +216,16 @@
 	  var pix = imgd.data;
 	  for (var i = 0; n = pix.length, i < n; i += 4) {
 	    if (pix[i] === 140) {
-	      balloon_locations.forEach(function(location, index) {
-	        if ((Math.abs(cat.x - location[0]) < 20) && (Math.abs(cat.y - location[1]) < 20)) {
-	          ctx.clearRect(balloon_locations[index][0], balloon_locations[index][1], 15, 15);
-	          balloons.splice(index, 1);
-	          balloon_locations.splice(index, 1);
+	      balloons.forEach(function(balloon, index) {
+	        if ((Math.abs(cat.x - balloon.location[0]) < 20) && (Math.abs(cat.y - balloon.location[1]) < 20)) {
+	          ctx.clearRect(balloon.location[0], balloon.location[1], 15, 15);
+	          balloons.splice(ballons.indexOf(balloon), 1);
+	          // balloon_locations.splice(index, 1);
 	          timer.time -= 30;
 	          document.getElementById('message-red').style.display = "block";
 	          setTimeout(function () {
 	            document.getElementById('message-red').style.display = "none";
-	          }, 15000);
+	          }, 5000);
 	        }
 	      })
 	    }
@@ -439,6 +415,28 @@
 	};
 	
 	module.exports = Fish;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var validPositions = __webpack_require__(1);
+	
+	var Balloon = function () {
+	  this.image = new Image();
+	  this.location = [0, 0];
+	};
+	
+	Balloon.prototype.setLocation = function () {
+	  var index = Math.floor(Math.random() * validPositions.length);
+	  var coords = validPositions[index];
+	  validPositions.splice(index, 1);
+	  this.location[0] = coords[0];
+	  this.location[1] = coords[1];
+	};
+	
+	module.exports = Balloon;
 
 
 /***/ }
