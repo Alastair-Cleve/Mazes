@@ -32,6 +32,22 @@ header {
   border-radius: 4px;
 }
 
+#message-green {
+  display: none;
+  border: 3px solid green;
+  border-radius: 4px;
+  color: green;
+  text-align: center;
+}
+
+#message-red {
+  display: none;
+  border: 3px solid red;
+  border-radius: 4px;
+  color: red;
+  text-align: center;
+}
+
 .canvas-div {
   width: 482px;
   border: 3px solid black;

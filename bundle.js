@@ -224,8 +224,11 @@
 	        if ((Math.abs(cat.x - _fish.location[0]) < 20) && (Math.abs(cat.y - _fish.location[1]) < 20)) {
 	          ctx.clearRect(_fish.location[0], _fish.location[1], 15, 15);
 	          fish.splice(fish.indexOf(_fish), 1);
-	          // fish_locations.splice(index, 1);
 	          timer.time += 30;
+	          document.getElementById('message-green').style.display = "block";
+	          setTimeout(function () {
+	            document.getElementById('message-green').style.display = "none";
+	          }, 15000);
 	        }
 	      })
 	    }
@@ -243,6 +246,10 @@
 	          balloons.splice(index, 1);
 	          balloon_locations.splice(index, 1);
 	          timer.time -= 30;
+	          document.getElementById('message-red').style.display = "block";
+	          setTimeout(function () {
+	            document.getElementById('message-red').style.display = "none";
+	          }, 15000);
 	        }
 	      })
 	    }
