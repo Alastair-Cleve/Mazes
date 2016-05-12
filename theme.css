@@ -1,0 +1,40 @@
+* {
+  font-family: 'Indie Flower', cursive;
+}
+
+body {
+  background-image: url("./images/soft_circle_scales.png");
+}
+
+header {
+  display: block;
+  margin: 0 auto;
+  width: 400px;
+}
+
+.section {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 125px;
+  padding-right: 125px;
+}
+
+.instructions {
+  display: block;
+  width: 250px;
+  font-size: 24px;
+}
+
+#timer {
+  margin-top: 50px;
+  padding: 5px;
+  width: 400px;
+  border-radius: 4px;
+}
+
+.canvas-div {
+  width: 482px;
+  border: 3px solid black;
+  padding: 10px;
+  border-radius: 4px;
+}
