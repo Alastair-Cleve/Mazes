@@ -1,5 +1,7 @@
 #MazeRunner
 
+**[Live Site](http://alastair-cleve.github.io/Mazes/)**
+
 ##Concept
 
 MazeRunner is a front-end JavaScript game, in which players, who are cats, must
