@@ -106,8 +106,8 @@
 	  balloons = [];
 	  for(var i = 0; i < 5; i++) {
 	    balloons.push(new Balloon ());
-	    balloon[i].image.src = "./images/balloon.png";
-	    balloon[i].setLocation();
+	    balloons[i].image.src = "./images/balloon.png";
+	    balloons[i].setLocation();
 	  }
 	
 	  timer();
@@ -219,7 +219,7 @@
 	      balloons.forEach(function(balloon, index) {
 	        if ((Math.abs(cat.x - balloon.location[0]) < 20) && (Math.abs(cat.y - balloon.location[1]) < 20)) {
 	          ctx.clearRect(balloon.location[0], balloon.location[1], 15, 15);
-	          balloons.splice(ballons.indexOf(balloon), 1);
+	          balloons.splice(balloons.indexOf(balloon), 1);
 	          // balloon_locations.splice(index, 1);
 	          timer.time -= 30;
 	          document.getElementById('message-red').style.display = "block";
@@ -339,7 +339,7 @@
 /***/ function(module, exports) {
 
 	var Timer = function () {
-		this.time = (60 * 10);
+		this.time = (60 * 3);
 		this.domEl = document.getElementById("timer");
 	};
 	

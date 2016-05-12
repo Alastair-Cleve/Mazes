@@ -1,5 +1,5 @@
 var Timer = function () {
-	this.time = (60 * 10);
+	this.time = (60 * 3);
 	this.domEl = document.getElementById("timer");
 };
 
