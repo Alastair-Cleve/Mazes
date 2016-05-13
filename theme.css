@@ -40,6 +40,10 @@ header {
   margin-top: 25px;
 }
 
+#play-button:active {
+  color: green;
+}
+
 #message-green {
   display: none;
   border: 3px solid green;
