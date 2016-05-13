@@ -32,6 +32,14 @@ header {
   border-radius: 4px;
 }
 
+#play-button {
+  border: 2px solid black;
+  border-radius: 4px;
+  width: 100px;
+  text-align: center;
+  margin-top: 25px;
+}
+
 #message-green {
   display: none;
   border: 3px solid green;

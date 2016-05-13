@@ -64,7 +64,7 @@ function init() {
     balloons[i].setLocation();
   }
 
-  timer();
+  // timer();
   var drawMaze = setInterval(draw, 10);
   return drawMaze;
 }
@@ -215,4 +215,7 @@ function draw() {
 }
 
 init();
-window.addEventListener('keydown', doKeyDown, true);
+document.getElementById("play-button").addEventListener('click', function () {
+  timer();
+  window.addEventListener('keydown', doKeyDown, true);
+});
