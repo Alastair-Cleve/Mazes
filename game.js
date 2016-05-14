@@ -220,6 +220,6 @@ document.getElementById("play-button").addEventListener('click', function () {
   window.addEventListener('keydown', doKeyDown, true);
 });
 
-// document.getElementById("play-button").addEventListener('mousedown', function () {
-//   document.getElementById("play-button").style.background-color = "red";
-// });
+document.getElementById("restart-button").addEventListener('click', function () {
+  location.reload();
+});
