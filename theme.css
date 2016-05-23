@@ -8,12 +8,14 @@ body {
 
 header {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 0 auto;
   width: 400px;
 }
 
 .section {
   display: flex;
+  width: 1000px;
+  margin: 0 auto 0 auto;
   justify-content: space-between;
   padding-left: 125px;
   padding-right: 125px;
@@ -26,7 +28,7 @@ header {
 }
 
 #timer {
-  margin-top: 50px;
+  margin-top: 25px;
   padding: 5px;
   width: 400px;
   border-radius: 4px;
@@ -55,12 +57,27 @@ header {
   margin-top: 25px;
 }
 
+#solve-button {
+  border: 2px solid black;
+  border-radius: 4px;
+  width: 100px;
+  text-align: center;
+  margin: 25px auto 0px auto;
+}
+
 #play-button:active {
-  color: green;
+  background-color: lightgreen;
+  box-shadow: 0 3px 0 #00823F;
 }
 
 #restart-button:active {
-  color:red;
+  background-color: salmon;
+  box-shadow: 0 3px 0 firebrick;
+}
+
+#solve-button:active {
+  background-color: cornflowerblue;
+  box-shadow: 0 3px 0 mediumblue;
 }
 
 #message-green {

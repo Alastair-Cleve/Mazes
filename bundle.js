@@ -49,6 +49,7 @@
 	var Cat = __webpack_require__(3);
 	var Fish = __webpack_require__(4);
 	var Balloon = __webpack_require__(5);
+	var solve = __webpack_require__(6);
 	
 	var canvas;
 	var ctx;
@@ -232,6 +233,16 @@
 	  }
 	}
 	
+	function checkforSolution() {
+	  var imgd = ctx.getImageData(200, 25, 15, 15);
+	  var pix = imgd.data;
+	  for (var i = 0; n = pix.length, i < n; i += 4) {
+	    if (pix[i] === 119) {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
 	
 	function checkIfWon() {
 	  if ((cat.x + 15) > 441 && (cat.y + 15) > 452) {
@@ -242,32 +253,47 @@
 	
 	function draw() {
 	  clear();
-	
 	  ctx.drawImage(cat.image, cat.x, cat.y);
 	
 	  ctx.fillStyle = "MidnightBlue";
 	
-	  if ((timer.time === 0) && !((cat.x + 15) > 441 && (cat.y + 15) > 452)) {
+	  if ((timer.time < 1) && !((cat.x + 15) > 441 && (cat.y + 15) > 452)) {
+	    timer.stop();
 	    ctx.fillStyle = "rgba(255, 0, 0, 1.0)";
 	    ctx.font = "bold 56px Arial";
 	    ctx.fillText("You've lost!", 105, 241);
 	    document.getElementById("canvas").style.opacity = "0.5";
-	  } else if ((cat.x + 15) > 441 && (cat.y + 15) > 452) {
+	    window.removeEventListener('keydown', doKeyDown, false);
+	  } else if ((cat.x === 425 && cat.y === 440) || (cat.x === 425 && cat.y === 445)) {
+	    timer.stop();
 	    ctx.fillStyle = "rgba(0, 255, 0, 1.0)";
 	    ctx.font = "bold 56px Arial";
 	    ctx.fillText("You've won!", 105, 241);
 	    document.getElementById("canvas").style.opacity = "0.5";
+	    window.removeEventListener('keydown', doKeyDown, false);
 	  }
 	}
 	
 	init();
 	document.getElementById("play-button").addEventListener('click', function () {
-	  timer();
-	  window.addEventListener('keydown', doKeyDown, true);
+	  if (!checkforSolution()) {
+	    timer();
+	    window.addEventListener('keydown', doKeyDown, false);
+	  } else {
+	    alert("You must restart the game.")
+	  }
 	});
 	
 	document.getElementById("restart-button").addEventListener('click', function () {
 	  location.reload();
+	});
+	
+	document.getElementById("solve-button").addEventListener('click', function () {
+	  solve(ctx);
+	  if (timer.time > 1) {
+	    timer.stop();
+	  }
+	  window.removeEventListener('keydown', doKeyDown, false);
 	});
 
 
@@ -358,8 +384,12 @@
 		return timer;
 	};
 	
+	Timer.prototype.stop = function () {
+		clearInterval(this.timer);
+	};
+	
 	Timer.prototype.render = function (seconds) {
-		if (seconds === 0) {
+		if (seconds < 1) {
 			clearInterval(this.timer);
 		}
 		if (seconds > 60 && seconds < 120) {
@@ -444,6 +474,117 @@
 	};
 	
 	module.exports = Balloon;
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = function (ctx) {
+	
+	  var coords = [
+	    [200, 25],
+	    [90, 25],
+	    [90, 45],
+	    [45, 45],
+	    [45, 25],
+	    [25, 25],
+	    [25, 70],
+	    [45, 70],
+	    [45, 90],
+	    [90, 90],
+	    [90, 200],
+	    [110, 200],
+	    [110, 155],
+	    [135, 155],
+	    [135, 135],
+	    [110, 135],
+	    [110, 45],
+	    [225, 45],
+	    [225, 25],
+	    [245, 25],
+	    [245, 45],
+	    [335, 45],
+	    [335, 25],
+	    [420, 25],
+	    [420, 155],
+	    [440, 155],
+	    [440, 355],
+	    [400, 355],
+	    [400, 200],
+	    [355, 200],
+	    [355, 155],
+	    [290, 155],
+	    [290, 180],
+	    [220, 180],
+	    [220, 70],
+	    [200, 70],
+	    [200, 115],
+	    [180, 115],
+	    [180, 155],
+	    [155, 155],
+	    [155, 225],
+	    [70, 225],
+	    [70, 155],
+	    [25, 155],
+	    [25, 310],
+	    [70, 310],
+	    [70, 245],
+	    [115, 245],
+	    [115, 265],
+	    [135, 265],
+	    [135, 245],
+	    [245, 245],
+	    [245, 265],
+	    [200, 265],
+	    [200, 290],
+	    [90, 290],
+	    [90, 335],
+	    [25, 335],
+	    [25, 400],
+	    [45, 400],
+	    [45, 445],
+	    [70, 445],
+	    [70, 400],
+	    [115, 400],
+	    [115, 445],
+	    [265, 445],
+	    [265, 375],
+	    [245, 375],
+	    [245, 400],
+	    [180, 400],
+	    [180, 310],
+	    [265, 310],
+	    [265, 245],
+	    [355, 245],
+	    [355, 220],
+	    [375, 220],
+	    [375, 335],
+	    [355, 335],
+	    [355, 265],
+	    [335, 265],
+	    [335, 290],
+	    [290, 290],
+	    [290, 335],
+	    [245, 335],
+	    [245, 355],
+	    [375, 355],
+	    [375, 400],
+	    [355, 400],
+	    [355, 420],
+	    [420, 420],
+	    [420, 445]
+	  ];
+	
+	  for (var i = 0; i < coords.length - 1; i++) {
+	    ctx.moveTo(coords[i][0] + 7, coords[i][1] + 7);
+	    ctx.lineTo(coords[i + 1][0] + 7, coords[i + 1][1] + 7);
+	    ctx.lineWidth = 1;
+	    ctx.strokeStyle = 'cornflowerblue';
+	    ctx.stroke();
+	  }
+	
+	};
 
 
 /***/ }

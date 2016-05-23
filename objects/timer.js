@@ -11,8 +11,12 @@ Timer.prototype.start = function () {
 	return timer;
 };
 
+Timer.prototype.stop = function () {
+	clearInterval(this.timer);
+};
+
 Timer.prototype.render = function (seconds) {
-	if (seconds === 0) {
+	if (seconds < 1) {
 		clearInterval(this.timer);
 	}
 	if (seconds > 60 && seconds < 120) {

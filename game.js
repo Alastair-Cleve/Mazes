@@ -3,6 +3,7 @@ var Timer = require('./objects/timer.js');
 var Cat = require('./objects/cat.js');
 var Fish = require('./objects/fish.js');
 var Balloon = require('./objects/balloon.js');
+var solve = require('./solve.js');
 
 var canvas;
 var ctx;
@@ -186,6 +187,16 @@ function checkForBalloons() {
   }
 }
 
+function checkforSolution() {
+  var imgd = ctx.getImageData(200, 25, 15, 15);
+  var pix = imgd.data;
+  for (var i = 0; n = pix.length, i < n; i += 4) {
+    if (pix[i] === 119) {
+      return true;
+    }
+  }
+  return false;
+}
 
 function checkIfWon() {
   if ((cat.x + 15) > 441 && (cat.y + 15) > 452) {
@@ -196,30 +207,45 @@ function checkIfWon() {
 
 function draw() {
   clear();
-
   ctx.drawImage(cat.image, cat.x, cat.y);
 
   ctx.fillStyle = "MidnightBlue";
 
-  if ((timer.time === 0) && !((cat.x + 15) > 441 && (cat.y + 15) > 452)) {
+  if ((timer.time < 1) && !((cat.x + 15) > 441 && (cat.y + 15) > 452)) {
+    timer.stop();
     ctx.fillStyle = "rgba(255, 0, 0, 1.0)";
     ctx.font = "bold 56px Arial";
     ctx.fillText("You've lost!", 105, 241);
     document.getElementById("canvas").style.opacity = "0.5";
-  } else if ((cat.x + 15) > 441 && (cat.y + 15) > 452) {
+    window.removeEventListener('keydown', doKeyDown, false);
+  } else if ((cat.x === 425 && cat.y === 440) || (cat.x === 425 && cat.y === 445)) {
+    timer.stop();
     ctx.fillStyle = "rgba(0, 255, 0, 1.0)";
     ctx.font = "bold 56px Arial";
     ctx.fillText("You've won!", 105, 241);
     document.getElementById("canvas").style.opacity = "0.5";
+    window.removeEventListener('keydown', doKeyDown, false);
   }
 }
 
 init();
 document.getElementById("play-button").addEventListener('click', function () {
-  timer();
-  window.addEventListener('keydown', doKeyDown, true);
+  if (!checkforSolution()) {
+    timer();
+    window.addEventListener('keydown', doKeyDown, false);
+  } else {
+    alert("You must restart the game.")
+  }
 });
 
 document.getElementById("restart-button").addEventListener('click', function () {
   location.reload();
+});
+
+document.getElementById("solve-button").addEventListener('click', function () {
+  solve(ctx);
+  if (timer.time > 1) {
+    timer.stop();
+  }
+  window.removeEventListener('keydown', doKeyDown, false);
 });
